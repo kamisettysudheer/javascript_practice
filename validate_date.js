@@ -1,124 +1,62 @@
 const format = 'mm-dd-yyyy';
-const date = '05-08-20060';
+const date = '05-08-2008';
 
 // Validate the given date against the format string
 
 // START YOUR CODE AFTER THIS LINE. DO NOT REMOVE THIS LINE
 
+let year = "";
+let month = "";
+let day = "";
+let whichFormat = 0;
+
 if (format === 'yyyy-mm-dd' && date.length === 10) {
-    let Year = date[0] + date[1] + date[2] + date[3];
-    let Month = date[5] + date[6];
-    let Date = date[8] + date[9];
-
-    const isYearValid = +Year >= 1 && +Year <= 9999;
-    const isMonthValid = +Month >= 1 && +Month <= 12;
-    const isDateValid = +Date >= 1 && +Date <= 31;
-
-    const isMonthHas30Days = +Month === 4 || +Month === 6 || +Month === 9 || +Month === 11;
-    const isMonthIsFeb = +Month === 2;
-    const isLeapYear = Year % 400 === 0 || Year % 100 !== 0 && Year % 4 === 0; 
-
-    const isLeapAndFeb = isLeapYear && isMonthIsFeb;
-
-    const generalisedDate = isYearValid && isMonthValid && isDateValid ? "valid" : "invalid";
-
-    if (isLeapAndFeb) {
-        const isValidDate = +Date < 30 && +Date > 0 ? "valid" : "invalid";
-        console.log(isValidDate);
-    }
-
-    if (!isLeapYear && isMonthIsFeb) {
-        const isValidDate = +Date < 29 && +Date > 0 ? "valid" : "invalid";
-        console.log(isValidDate);
-    }
-
-    if (isMonthHas30Days) {
-        const isValidDate = +Date < 31 && +Date > 0 ? "valid" : "invalid";
-        console.log(isValidDate);   
-    }
-
-    else {
-        console.log(generalisedDate);
-    }
+    year = +(date[0] + date[1] + date[2] + date[3]);
+    month = +(date[5] + date[6]);
+    day = +(date[8] + date[9]);
+    whichFormat = 1;
 }
 
 if (format === 'mm-dd-yyyy' && date.length === 10) {
-    let Year = date[6] + date[7] + date[8] + date[9];
-    let Month = date[0] + date[1];
-    let Date = date[3] + date[4];
-
-    const isYearValid = +Year >= 1 && +Year <= 9999;
-    const isMonthValid = +Month >= 1 && +Month <= 12;
-    const isDateValid = +Date >= 1 && +Date <= 31;
-
-    const isMonthHas30Days = +Month === 4 || +Month === 6 || +Month === 9 || +Month === 11;
-    const isMonthIsFeb = +Month === 2;
-    const isLeapYear = Year % 400 === 0 || Year % 100 !== 0 && Year % 4 === 0; 
-
-    const isLeapAndFeb = isLeapYear && isMonthIsFeb;
-
-    const generalisedDate = isYearValid && isMonthValid && isDateValid ? "valid" : "invalid";
-
-    if (isLeapAndFeb) {
-        const isValidDate = +Date < 30 && +Date > 0 ? "valid" : "invalid";
-        console.log(isValidDate);
-    }
-
-    if (!isLeapYear && isMonthIsFeb) {
-        const isValidDate = +Date < 29 && +Date > 0 ? "valid" : "invalid";
-        console.log(isValidDate);
-    }
-
-    if (isMonthHas30Days) {
-        const isValidDate = +Date < 31 && +Date > 0 ? "valid" : "invalid";
-        console.log(isValidDate);   
-    }
-
-    else {
-        console.log(generalisedDate);
-    }
+    year = +(date[6] + date[7] + date[8] + date[9]);
+    month = +(date[0] + date[1]);
+    day = +(date[3] + date[4]);
+    whichFormat = 2;
 }
 
 if (format === 'dd-mm-yyyy' && date.length === 10) {
-    let Year = date[6] + date[7] + date[8] + date[9];
-    let Month = date[3] + date[4];
-    let Date = date[0] + date[1];
-
-    const isYearValid = +Year >= 1 && +Year <= 9999;
-    const isMonthValid = +Month >= 1 && +Month <= 12;
-    const isDateValid = +Date >= 1 && +Date <= 31;
-
-    const isMonthHas30Days = +Month === 4 || +Month === 6 || +Month === 9 || +Month === 11;
-    const isMonthIsFeb = +Month === 2;
-    const isLeapYear = Year % 400 === 0 || Year % 100 !== 0 && Year % 4 === 0; 
-
-    const isLeapAndFeb = isLeapYear && isMonthIsFeb;
-
-    const generalisedDate = isYearValid && isMonthValid && isDateValid ? "valid" : "invalid";
-
-    if (isLeapAndFeb) {
-        const isValidDate = +Date < 30 && +Date > 0 ? "valid" : "invalid";
-        console.log(isValidDate);
-    }
-
-    if (!isLeapYear && isMonthIsFeb) {
-        const isValidDate = +Date < 29 && +Date > 0 ? "valid" : "invalid";
-        console.log(isValidDate);
-    }
-
-    if (isMonthHas30Days) {
-        const isValidDate = +Date < 31 && +Date > 0 ? "valid" : "invalid";
-        console.log(isValidDate);   
-    }
-
-    else {
-        console.log(generalisedDate);
-    }
+    year = +(date[6] + date[7] + date[8] + date[9]);
+    month = +(date[3] + date[4]);
+    day = +(date[0] + date[1]);
+    whichFormat = 3;
 }
 
-const isFormatCorrect = (format !== "yyyy-mm-dd" && format !== "mm-dd-yyyy" && format !== "dd-mm-yyyy");
-const isDateLengthCorrect = date.length === 10;
+const isYearValid = year >= 1 && year <= 9999;
+const isMonthValid = month >= 1 && month <= 12;
+const isDayValid = day >= 1 && day <= 31;
 
-if (isFormatCorrect || !isDateLengthCorrect) {
-    console.log("invalid");
+const isMonthHas30Days = (month === 4) || (month === 6) || (month === 9) || (month === 11);
+const isMonthIsFeb = month === 2;
+const isLeapYear = (year % 400 === 0) || ((year % 100 !== 0) && (year % 4 === 0));
+
+let isValidDate = isYearValid && isMonthValid && isDayValid;
+
+if (isLeapYear && isMonthIsFeb) {
+    isValidDate = day < 30 && day > 0;
 }
+
+if (!isLeapYear && isMonthIsFeb) {
+    isValidDate = day < 29 && day > 0;
+}
+
+if (isMonthHas30Days) {
+    isValidDate = day < 31 && day > 0;
+}
+
+if (whichFormat === 0 || !date.length) {
+    isValidDate = false;
+}
+
+const dateIsValidated = isValidDate ? "valid" : "invalid";
+
+console.log(dateIsValidated);
