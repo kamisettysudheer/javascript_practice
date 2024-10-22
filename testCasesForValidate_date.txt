@@ -1,0 +1,59 @@
+Input Date|Format|Expected|Actual Result|Test category
+2020-10-10|yyyy-mm-dd|Valid|Valid|Simple date
+
+2000-20-40|yyyy-mm-dd|invalid|invalid|valid year, invalid month, invalid date
+0000-11-50|yyyy-mm-dd|invalid|invalid|invalid year, valid month, invalid date
+0000-30-12|yyyy-mm-dd|invalid|invalid|invalid year, invalid month, valid date
+2012-12-12|yyyy-mm-dd|valid|valid|valid year, valid month, valid date
+0000-35-42|yyyy-mm-dd|invalid|invalid|invalid year, invalid month, invalid date
+0020-11-32|yyyy-mm-dd|invalid|invalid|valid year, valid month, invalid date
+0204-14-12|yyyy-mm-dd|invalid|invalid|valid year, invalid month, valid date
+0000-11-14|yyyy-mm-dd|invalid|invalid|invalid year, valid month, invalid date
+
+08-05-2006|dd-mm-yyyy|valid|invalid|valid year, valid month, valid date
+11-11-2016|dd-mm-yyyy|valid|invalid|valid year, valid month, valid date
+34-14-0000|dd-mm-yyyy|invalid|invalid|invalid year, invalid month, invalid date
+00-13-0000|dd-mm-yyyy|invalid|invalid|invalid year, invalid month, invalid date
+19-14-0000|dd-mm-yyyy|invalid|invalid|invalid year, invalid month, valid date
+40-11-0000|dd-mm-yyyy|invalid|invalid|invalid year, valid month, invalid date
+40-14-0000|dd-mm-yyyy|invalid|invalid|invalid year, invalid month, invalid date
+10-10-0000|dd-mm-yyyy|invalid|invalid|invalid year, valid month, valid date
+10-14-2000|dd-mm-yyyy|invalid|invalid|valid year, invalid month, valid date
+40-11-0000|dd-mm-yyyy|invalid|invalid|invalid year, valid month, invalid date
+
+08-05-2006|mm-dd-yyyy|valid|invalid|valid year, valid month, valid date
+11-24-2010|mm-dd-yyyy|valid|invalid|valid year, valid month, valid date
+13-00-0000|mm-dd-yyyy|invalid|invalid|invalid year, invalid month, invalid date
+14-41-0000|mm-dd-yyyy|invalid|invalid|invalid year, invalid month, invalid date
+11-41-0000|mm-dd-yyyy|invalid|invalid|valid year, invalid month, invalid date
+14-30-0000|mm-dd-yyyy|invalid|invalid|invalid year, valid month, invalid date
+14-34-2005|mm-dd-yyyy|invalid|invalid|invalid year, invalid month, valid date
+11-11-0000|mm-dd-yyyy|invalid|invalid|valid year, valid month, invalid date
+11-41-2006|mm-dd-yyyy|invalid|invalid|valid year, invalid month, valid date
+14-11-2006|mm-dd-yyyy|invalid|invalid|invalid year, valid month, valid date
+
+
+2050-11-20|yyyy-mm-dd|valid|invalid|future date
+2024-11-22|yyyy-mm-dd|valid|valid|leap year
+2012-01-02|yyyy-mm-dd|valid|valid|leap year
+10-10-2013|dd-mm-yyyy|valid|invalid|Simple date
+10-10-2013|mm-dd-yyyy|valid|invalid|Simple date
+1998-05-03|yyyy-mm-dd|valid|valid|Simple date
+
+
+2004-02-30|yyyy-mm-dd|invalid|valid|date is out of the month
+2004-02-31|yyyy-mm-dd|invalid|valid|date is out of the month
+2005-02-29|yyyy-mm-dd|invalid|valid|date is out of the month
+2004-04-31|yyyy-mm-dd|invalid|valid|date is out of the month
+2004-06-31|yyyy-mm-dd|invalid|valid|date is out of the month
+2004-09-31|yyyy-mm-dd|invalid|valid|date is out of the month
+2004-11-31|yyyy-mm-dd|invalid|valid|date is out of the month
+
+
+1899-11-11|yyyy-mm-dd|valid|invalid|below 1900
+1800-11-11|yyyy-mm-dd|valid|invalid|below 1900
+
+
+2025-01-01|yyyy-mm-dd|valid|invalid|above 2024
+2034-11-21|yyyy-mm-dd|valid|invalid|above 2024
+
