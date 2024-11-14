@@ -29,8 +29,8 @@ function getDay(date, formatNumber) {
   }
 }
 
-function getMonth(date, formatNumber) {
-  switch (formatNumber) {
+function getMonth(date, formatCode) {
+  switch (formatCode) {
     case 1:
       return +(date[3] + date[4]);
     case 2:
@@ -40,19 +40,16 @@ function getMonth(date, formatNumber) {
   }
 }
 
-function getYear(date, formatNumber) {
-  switch (formatNumber) {
-    case 1:
-      return +(date[6] + date[7] + date[8] + date[9]);
-    case 2:
-      return +(date[6] + date[7] + date[8] + date[9]);
-    case 3:
-      return +(date[0] + date[1] + date[2] + date[3]);
+function getYear(date, formatCode) {
+  if (formatCode === 1 || formatCode === 2) {
+    return +(date[6] + date[7] + date[8] + date[9]);
   }
+
+  return +(date[0] + date[1] + date[2] + date[3]);
 }
 
-function isFormatMatched(formatNumber, date, day, month, year) {
-  if (formatNumber === 1) {
+function isFormatMatched(formatCode, date, day, month, year) {
+  if (formatCode === 1) {
     const isCorretDay = +(date[0] + date[1]) === day;
     const isCorretMonth = +(date[3] + date[4]) === month;
     const isCorretYear = +(date[6] + date[7] + date[8] + date[9]) === year;
@@ -61,16 +58,17 @@ function isFormatMatched(formatNumber, date, day, month, year) {
     return isCorretDay && isCorretMonth && isCorretYear && isCorrectHyphen;
   }
 
-  if (formatNumber === 2) {
+  if (formatCode === 2) {
     const isCorretMonth = +(date[0] + date[1]) === month;
     const isCorretDay = +(date[3] + date[4]) === day;
     const isCorretYear = +(date[6] + date[7] + date[8] + date[9]) === year;
     const isCorrectHyphen = date[2] + date[5] === "--";
 
     return isCorretDay && isCorretMonth && isCorretYear && isCorrectHyphen;
+
   }
 
-  if (formatNumber === 3) {
+  if (formatCode === 3) {
     const isCorretDay = +(date[8] + date[9]) === day;
     const isCorretMonth = +(date[5] + date[6]) === month;
     const isCorretYear = +(date[0] + date[1] + date[2] + date[3]) === year;
@@ -90,24 +88,20 @@ function isLeapYear(year) {
   return isDivisible(year, 100) ? isDivisible(year, 400) : isDivisible(year, 4);
 }
 
+function getDaysOfTheMonth(month, year) {
+  if ((month === 4) || (month === 6) || (month === 9) || (month === 11)) {
+    return 31;
+  }
+
+  if (month === 2) {
+    return isLeapYear(year) ? 30 : 29;
+  }
+
+  return 32;
+}
+
 function isValidDate(year, month, day) {
-  const isYearLeap = isLeapYear(year);
-  const isMonthIsFeb = month === 2;
-  const isMonthHas30Days = (month === 4) || (month === 6) || (month === 9) || (month === 11);
-
-  if (isMonthHas30Days) {
-    return isNumberInRange(day, 0, 31);
-  }
-
-  if (isMonthIsFeb && isYearLeap) {
-    return isNumberInRange(day, 0, 30);
-  }
-
-  if (isMonthIsFeb) {
-    return isNumberInRange(day, 0, 29);
-  }
-
-  return isNumberInRange(day, 0, 32);;
+  return isNumberInRange(day, 0, getDaysOfTheMonth(month, year));
 }
 
 function validate(format, date) {
@@ -122,8 +116,8 @@ function validate(format, date) {
   const day = getDay(date, formatCode);
 
   const isFormatCorrect = isFormatMatched(formatCode, date, day, month, year);
-  const isYearValid = isNumberInRange(year, 0, 9999);
-  const isMonthValid = isNumberInRange(month, 0, 12);
+  const isYearValid = isNumberInRange(year, 0, 10000);
+  const isMonthValid = isNumberInRange(month, 0, 13);
   const isDayValid = isValidDate(year, month, day);
 
   if (!isFormatCorrect || date.length !== 10) {
@@ -160,7 +154,7 @@ function testAll() {
   testValidate('dd-mm-yyyy', '01-01-2020', 'valid');
   testValidate('yyyy-mm-dd', '01-21-2020', 'date not according to format');
   testValidate('dd-mm-yyyy', '0*-01-2020', 'date not according to format');
-  testValidate('dd-mm-yyyy', '02- 1-2020', 'invalid month');
+  testValidate('dd-mm-yyyy', '02- 1-2020', 'date not according to format');
 }
 
 testAll();
